@@ -35,6 +35,7 @@ var (
 	version         string = "1.0"
 	baseTrackingUrl string = "http://sporing.bring.no/sporing.json?q="
 	basePickUpUrl   string = "http://fraktguide.bring.no/fraktguide/api/pickuppoint"
+	data            map[string]interface{}
 )
 
 // request takes a url as an argument and returns the JSON data
@@ -63,18 +64,18 @@ func request(url string) (map[string]interface{}, error) {
 // url, and then returns the JSON data of the request on success.
 func Track(trackingNumber string) (map[string]interface{}, error) {
 
-	url := fmt.Sprintf("%v%v", baseUrl, trackingNumber)
-	data, err := request(url)
-	return data, err
+	url := fmt.Sprintf("%v%v", baseTrackingUrl, trackingNumber)
+	resp, err := request(url)
+	return resp, err
 }
 
 // PickByPostalCode takes a postalCode as an argument, sets up the request
 // url, and then returns the JSON data of the request on success.
 func PickByPostalCode(postalCode string) (map[string]interface{}, error) {
 
-	url := fmt.Sprintf("%v/postalcode/%v.json")
-	data, err := request(url)
-	return data, err
+	url := fmt.Sprintf("%v/postalcode/%v.json", basePickUpUrl, postalCode)
+	resp, err := request(url)
+	return resp, err
 }
 
 // PickByLocation takes the latitude and longitude as arguments, sets up the request
@@ -82,8 +83,8 @@ func PickByPostalCode(postalCode string) (map[string]interface{}, error) {
 func PickByLocation(lat, lon float64) (map[string]interface{}, error) {
 
 	url := fmt.Sprintf("%v/location/%v/%v.json", basePickUpUrl, lat, lon)
-	data, err := request(url)
-	return data, err
+	resp, err := request(url)
+	return resp, err
 }
 
 // PickById takes a pickuplocation id as an argument, sets up the request
@@ -91,6 +92,6 @@ func PickByLocation(lat, lon float64) (map[string]interface{}, error) {
 func PickById(id string) (map[string]interface{}, error) {
 
 	url := fmt.Sprintf("%v/id/%v.json", basePickUpUrl, id)
-	data, err := request(url)
-	return data, err
+	resp, err := request(url)
+	return resp, err
 }
