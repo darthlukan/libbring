@@ -78,6 +78,18 @@ func PickByPostalCode(postalCode string) (map[string]interface{}, error) {
 	return resp, err
 }
 
+// PickByPostalCodeWithQuery takes two strings, postalCode and query, as arguments,
+// sets up the request url, and then returns the JSON data of the request on success.
+//
+// NOTE: The returned results will all contain the query string in their names on match.
+// No string match, no results.
+func PickByPostalCodeWithQuery(postalCode, query string) (map[string]interface{}, error) {
+
+	url := fmt.Sprintf("%v/postalcode/%v.json?searchForText=%v", basePickUpUrl, postalCode, query)
+	resp, err := request(url)
+	return resp, err
+}
+
 // PickByLocation takes the latitude and longitude as arguments, sets up the request
 // url, and then returns the JSON data of the request on success.
 func PickByLocation(lat, lon float64) (map[string]interface{}, error) {

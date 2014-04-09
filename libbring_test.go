@@ -18,6 +18,15 @@ func TestPickByPostalCode(t *testing.T) {
 	}
 }
 
+func TestPickByPostalCodeWithQuery(t *testing.T) {
+	postalCode := "4051"
+	query := "COOP" // As in, COOP-Mega (grocery store)
+
+	if _, err := PickByPostalCodeWithQuery(postalCode, query); err != nil {
+		t.Errorf("PickByPostalCodeWithQuery(%v, %v) err = %v, want nil\n", postalCode, query, err)
+	}
+}
+
 func TestPickById(t *testing.T) {
 	id := "121110" // Oppegård, Norge
 
