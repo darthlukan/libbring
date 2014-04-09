@@ -1,5 +1,7 @@
 # LibBring v1.0
 
+[![Build Status](https://drone.io/github.com/darthlukan/libbring/status.png)](https://drone.io/github.com/darthlukan/libbring/latest)
+
 > Author: Brian Tomlinson <brian.tomlinson@linux.com>
 
 
