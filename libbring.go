@@ -29,6 +29,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 var (
@@ -78,14 +79,27 @@ func PickByPostalCode(postalCode string) (map[string]interface{}, error) {
 	return resp, err
 }
 
-// PickByPostalCodeWithQuery takes two strings, postalCode and query, as arguments,
+// PickByPostalCodeWithTextQuery takes two strings, postalCode and query, as arguments,
 // sets up the request url, and then returns the JSON data of the request on success.
 //
 // NOTE: The returned results will all contain the query string in their names on match.
 // No string match, no results.
-func PickByPostalCodeWithQuery(postalCode, query string) (map[string]interface{}, error) {
+func PickByPostalCodeWithTextQuery(postalCode, query string) (map[string]interface{}, error) {
 
 	url := fmt.Sprintf("%v/postalcode/%v.json?searchForText=%v", basePickUpUrl, postalCode, query)
+	resp, err := request(url)
+	return resp, err
+}
+
+// PickByPostalCodeWithOpeningHoursQuery takes two strings, postalCode and hours, as arguments,
+// makes sure hours is all upper case, sets up the request url, and then returns the JSON data of
+// the request on success.
+//
+// NOTE: hours needs to be a day of the week, not a time range or time limit.
+func PickByPostalCodeWithOpeningHoursQuery(postalCode, hours string) (map[string]interface{}, error) {
+
+	upperHours := strings.ToUpper(hours)
+	url := fmt.Sprintf("%v/postalcode/%v.json?openingHoursSearchType=%v", basePickUpUrl, postalCode, upperHours)
 	resp, err := request(url)
 	return resp, err
 }

@@ -18,12 +18,21 @@ func TestPickByPostalCode(t *testing.T) {
 	}
 }
 
-func TestPickByPostalCodeWithQuery(t *testing.T) {
+func TestPickByPostalCodeWithTextQuery(t *testing.T) {
 	postalCode := "4051"
 	query := "COOP" // As in, COOP-Mega (grocery store)
 
-	if _, err := PickByPostalCodeWithQuery(postalCode, query); err != nil {
+	if _, err := PickByPostalCodeWithTextQuery(postalCode, query); err != nil {
 		t.Errorf("PickByPostalCodeWithQuery(%v, %v) err = %v, want nil\n", postalCode, query, err)
+	}
+}
+
+func TestPickByPostalCodeWithOpeningHoursQuery(t *testing.T) {
+	postalCode := "4051"
+	hoursQuery := "SUNDAY"
+
+	if _, err := PickByPostalCodeWithOpeningHoursQuery(postalCode, hoursQuery); err != nil {
+		t.Errorf("PickByPostalCodeWithOpeningHoursQuery(%v, %v) err = %v, want nil\n", postalCode, hoursQuery, err)
 	}
 }
 
