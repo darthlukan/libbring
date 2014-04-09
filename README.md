@@ -15,7 +15,9 @@
 
 > Example:
 
-```
+```go
+    package main
+
     import (
         "fmt"
         "github.com/darthlukan/libbring"
